@@ -1,0 +1,26 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  host: postgres_db
+  username: postgres
+  password: password
+  database: weather_development
+
+test:
+  <<: *default
+  host: postgres_db
+  username: postgres
+  password: password
+  database: weather_test
+
+production:
+  <<: *default
+  database: weather_production
+  username: weather
+  password: <%= ENV["WEATHER_DATABASE_PASSWORD"] %>  
