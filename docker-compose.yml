@@ -1,0 +1,37 @@
+services:
+  backend_weather:
+    build:
+      context: ./backend_weather
+      dockerfile: ./Dockerfile
+    command: bash -c "rm -f /backend_weather/tmp/pids/server.pid && rails server -b 0.0.0.0"
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./backend_weather:/backend_weather
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres_db
+
+  frontend_weather:
+    build:
+      context: ./frontend_weather
+      dockerfile: ./Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./frontend_weather:/frontend_weather
+      - /frontend_weather/node_modules
+
+  postgres_db:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - envs/postgres.env
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+    driver: local
