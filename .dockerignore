@@ -1,0 +1,4 @@
+# Ignore dotenv environment variables file.
+/.env
+/.env.*
+/.envs

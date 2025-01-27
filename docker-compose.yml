@@ -8,10 +8,15 @@ services:
     stdin_open: true
     volumes:
       - ./backend_weather:/backend_weather
+    env_file:
+      - envs/secrets.env
     ports:
       - "3000:3000"
     depends_on:
       - postgres_db
+      - redis
+    networks:
+      - network_weather
 
   frontend_weather:
     build:
@@ -22,16 +27,32 @@ services:
     volumes:
       - ./frontend_weather:/frontend_weather
       - /frontend_weather/node_modules
+    networks:
+      - network_weather
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - network_weather
 
   postgres_db:
     image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - envs/postgres.env
+      - envs/secrets.env
     ports:
       - "5432:5432"
+    networks:
+      - network_weather
 
 volumes:
   postgres_data:
     driver: local
+
+networks:
+  network_weather:
+    driver: bridge
