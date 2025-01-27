@@ -27,6 +27,8 @@ services:
     volumes:
       - ./frontend_weather:/frontend_weather
       - /frontend_weather/node_modules
+    env_file:
+      - envs/secrets.env
     networks:
       - network_weather
 
