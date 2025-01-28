@@ -6,6 +6,9 @@ class WeatherService {
   all() {
     return axios.get(`${url}weather.json`);
   }
+  show(cityId) {
+    return axios.get(`${url}weather/${cityId}.json`);
+  }
 };
 
 export default new WeatherService;
