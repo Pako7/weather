@@ -1,7 +1,7 @@
 namespace :populate_weathers do
-  desc 'Populate weathers from API'
-  task :run => :environment do
-    puts 'Populating weathers...'
+  desc "Populate weathers from API"
+  task run: :environment do
+    puts "Populating weathers..."
     puts "Initial: #{Weather.count}"
 
     date = Time.zone.today
@@ -9,6 +9,6 @@ namespace :populate_weathers do
       SaveWeatherService.new(city:, date:).call
     end
     puts "Final: #{Weather.count}"
-    puts 'Weathers populated successfully!'
+    puts "Weathers populated successfully!"
   end
 end
