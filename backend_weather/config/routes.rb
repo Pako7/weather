@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   namespace :api do
     namespace :v1 do
-      resources :weather, only: %i[index]
+      resources :weather, only: %i[index show]
     end
   end
 end

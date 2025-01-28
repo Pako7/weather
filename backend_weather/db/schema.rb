@@ -27,11 +27,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_27_050008) do
 
   create_table "weathers", force: :cascade do |t|
     t.bigint "city_id", null: false
-    t.float "temperature"
-    t.float "temperature_min"
-    t.float "temperature_max"
+    t.float "temp"
+    t.float "temp_min"
+    t.float "temp_max"
+    t.string "unit"
     t.string "climatic_condition"
-    t.date "date"
+    t.datetime "datetime"
+    t.string "datetime_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_weathers_on_city_id"

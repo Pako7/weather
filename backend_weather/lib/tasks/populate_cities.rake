@@ -1,6 +1,3 @@
-require 'faraday'
-require_relative '../../app/services/faraday_service'
-
 namespace :populate_cities do
   desc 'Populate cities from API'
   task :run => :environment do
