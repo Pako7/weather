@@ -10,8 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 0) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_27_050008) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "cities", force: :cascade do |t|
+    t.integer "reference_id"
+    t.string "display"
+    t.string "state"
+    t.string "country"
+    t.string "lat"
+    t.string "long"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "weathers", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.float "temp"
+    t.float "temp_min"
+    t.float "temp_max"
+    t.string "unit"
+    t.string "climatic_condition"
+    t.datetime "datetime"
+    t.string "datetime_text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_weathers_on_city_id"
+  end
+
+  add_foreign_key "weathers", "cities"
 end
